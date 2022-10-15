@@ -10,7 +10,7 @@ heightSteps = 7;
 
 
 //preview shows all
-preview=false;
+preview=true;
 
 //change for different modules
 x=11;
