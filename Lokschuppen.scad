@@ -2,7 +2,7 @@ use <shapes.scad>
 //settings
 {
     //enable details for final rendering
-    balken_an = false;
+    balken_an = true;
 
     laenge = 180;
     breite = 90;
@@ -336,7 +336,7 @@ module u_kanal(u_breite=10, u_hoehe= 4, u_laenge=50, u_dicke=1, cut_top_left=fal
 
 
 //putt it together
-%union(){
+union(){
 // linke wand
 translate([0,breite/2,0])
 wall(laenge, hoehe, dicke, 4);
@@ -383,17 +383,11 @@ dach();
 
 boden();
 
-
-    
-
-
-%gleis(3*boden_rand, -c_gleis_breite/2);
-
-}
-
-kabel_kanal_drucken = true;
+//kabelkanal
+union(){
+  kabel_kanal_drucken = false;
 if(kabel_kanal_drucken){
-    !union(){
+    union(){
         translate([0,-3*kabel_kanal_breite,0])
         u_kanal(kabel_kanal_breite,5,hoehe, cut_bottom_right=true);
         translate([0,3*kabel_kanal_breite,0])
@@ -402,7 +396,7 @@ if(kabel_kanal_drucken){
     }
     
 }else{
-    !union(){
+    union(){
     //kabel kanal wand hinten
     translate([kabel_kanal_breite,0,0])
     rotate([0,-90,0])
@@ -414,9 +408,17 @@ if(kabel_kanal_drucken){
     translate([laenge/3+kabel_kanal_hoehe,kabel_kanal_breite,hoehe])
     rotate([180,0,0])
     u_kanal(kabel_kanal_breite,kabel_kanal_hoehe,laenge/3);
-}
+}  
+    }
     }
 
 
 
+
+    
+
+
+%gleis(3*boden_rand, -c_gleis_breite/2);
+
+}
 
