@@ -200,7 +200,7 @@ module dachecke(ecke_hohe=20, ecke_breite=30, distance=150){
     }
     color(farbe_fenster){
     translate([0,-2,1])
-    !grid(distance+1, ecke_hohe-1, 4,1,1, 1);
+    grid(distance+1, ecke_hohe-1, 4,1,1, 1);
     translate([0,-1,1])
     grid(distance+1, ecke_hohe-1, 0,1,1, 0.3);
     }

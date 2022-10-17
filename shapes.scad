@@ -26,7 +26,7 @@ module trapez3d(bottom = 30, top = 25, height = 10, length = 172){
     }
 }
 
-translate([0,50,0])
+translate([0,0,0])
 trapez3d();
 
 module trapez(bottom = 30, top = 25, height = 10){
@@ -55,7 +55,8 @@ module grid(grid_width=40, grid_height=60, steps_wide=2, steps_high=3, bar_width
     step_height = step_size(grid_height, bar_width, steps_high);
 
     if(name != "grid")
-        echo (name, " steps ", step_width, step_height)
+        echo (name, " steps ", step_width, step_height);
+
     if(steps_wide>0){
     for(s_wide=[0:steps_wide]){
         translate([s_wide*step_width,0,0])
@@ -70,14 +71,14 @@ module grid(grid_width=40, grid_height=60, steps_wide=2, steps_high=3, bar_width
 
 }
 
-border = 10;
-wide=3;
+border = 8;
+wide=4;
 height=2;
-translate([0,0,0])
+translate([0,70,0])
 grid(100,100, wide, height, bar_width=border);
 
 // sample cube to fit in the hole
 
 color("#00FFFF50")
-translate([border,-2, border])
+translate([border,68, border])
 cube([step_size(100,border,wide)-border,6,step_size(100,border,height)-border]);
