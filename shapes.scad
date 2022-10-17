@@ -54,7 +54,7 @@ module grid(grid_width=40, grid_height=60, steps_wide=2, steps_high=3, bar_width
     step_width = step_size(grid_width, bar_width, steps_wide);
     step_height = step_size(grid_height, bar_width, steps_high);
 
-    if(name != "grid2")
+    if(name != "grid")
         echo (name, " steps ", step_width, step_height)
     if(steps_wide>0){
     for(s_wide=[0:steps_wide]){
