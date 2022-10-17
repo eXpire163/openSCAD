@@ -1,8 +1,9 @@
 use <shapes.scad>
+use <cabelcanal.scad>
 //settings
 {
     //enable details for final rendering
-    balken_an = true;
+    balken_an = false;
 
     laenge = 180;
     breite = 90;
@@ -33,12 +34,13 @@ use <shapes.scad>
 
     gehweg_hoehe  =20;
     gehweg_breite = 12;
-    
+
     kabel_kanal_breite = 10;
     kabel_kanal_hoehe = 5;
 }
- 
- 
+
+
+
 //elements
 {
 module wall(laenge, hoehe, dicke, fenster=0){
@@ -56,18 +58,18 @@ module wall(laenge, hoehe, dicke, fenster=0){
         }
         //fenster
         if(fenster>0){
-            
+
             for(count=[0:fenster-1]){
                 translate([fenster_rahmen+(count*(fenster_rahmen+fenster_breite)),-1,fenster_boden_abstand]){
                     cube([fenster_breite,10,  fenster_hoehe]);
                     //fenster_innen
-                    
+
                 }
             }
-            
-            
+
+
         }
-        
+
     }
     //fenster_inlet
     if(fenster > 0){
@@ -75,13 +77,13 @@ module wall(laenge, hoehe, dicke, fenster=0){
                 translate([fenster_rahmen+(count*(fenster_rahmen+fenster_breite)),-1,fenster_boden_abstand]){
                     fenster_inlet(fenster_breite, fenster_hoehe);
                     //fenster_innen
-                    
+
                 }
             }
-        
-        
+
+
     }
-    
+
 }
 module fenster_inlet(breite=20, hoehe=30, tiefe =2, rand = 3){
     breite = breite -1;//speilraum
@@ -94,26 +96,63 @@ module fenster_inlet(breite=20, hoehe=30, tiefe =2, rand = 3){
         grid(breite, hoehe, 1, 3, 1, 3);
         //hinten
         grid(breite+2*rand, hoehe+2*rand, 1, 1, 3, 1);
-        
+
     }
-    
+
 }
 
 
 
+
+module tuer2(){
+    tuer_breite = eingang_breite/2 - 1;
+    tuer_hoehe = eingang_hoehe-gleis_hoehe ;
+    tuer_rahmen = 5;
+
+    union(){
+        grid(tuer_breite,tuer_hoehe, 1 , 2, tuer_rahmen, dicke, name="tuer");
+
+        //deko
+        translate([0,0 , +1]){
+
+            f_breite = step_size(tuer_breite, tuer_rahmen, 1)-tuer_rahmen-1;
+            f_hoehe = step_size(tuer_hoehe, tuer_rahmen, 2)-tuer_rahmen-1;
+            ecken = 5;
+            d_hoehe = f_hoehe/ecken;
+            glue = 2;
+            color(farbe_fenster){
+                for(step=[0:ecken-1]){
+                    translate([f_breite+tuer_rahmen,0,tuer_rahmen+(step*d_hoehe)])
+                    rotate([90,0,-90])
+                    triangle(d_hoehe,1,f_breite);
+                }
+            }
+            //spacer
+            translate([tuer_rahmen,0,tuer_rahmen])
+            cube([f_breite, 0.6, f_hoehe]);
+            // glue part back
+            translate([tuer_rahmen-glue,0.6,tuer_rahmen-glue])
+            cube([f_breite+glue+glue, 0.6, f_hoehe+glue+glue]);
+        }
+
+    }
+
+
+}
+
 module dach(){
-    
+
     fenster_hohe=20;
     fenster_tiefe=30;
     fenster_breite=150;
-    
+
     pos1x=20;
     pos1y=10;
     pos2x=20;
     pos2y=60;
-    
+
     difference(){
-        
+
             union(){
             cube([laenge+4*dicke, breite+8*dicke, dicke]);
             translate([pos1x,pos1y,0])
@@ -128,12 +167,12 @@ module dach(){
                 cube([fenster_breite-4,fenster_tiefe-8,4]);
            // translate([20,60,0])
           //      cube(fenster_breite,fenster_tiefe,10);
-            
-            
-            
-            
-        }    
-    
+
+
+
+
+        }
+
 }
 
 module dachecke(ecke_hohe=20, ecke_breite=30, distance=150){
@@ -157,11 +196,11 @@ module dachecke(ecke_hohe=20, ecke_breite=30, distance=150){
                 triangle(ecke_hohe,ecke_breite,1);
         translate([0,0,distance*3/4])
                 triangle(ecke_hohe,ecke_breite,1);
-        
+
     }
     color(farbe_fenster){
     translate([0,-2,1])
-    grid(distance+1, ecke_hohe-1, 4,1,1, 1);
+    !grid(distance+1, ecke_hohe-1, 4,1,1, 1);
     translate([0,-1,1])
     grid(distance+1, ecke_hohe-1, 0,1,1, 0.3);
     }
@@ -170,26 +209,26 @@ module dachecke(ecke_hohe=20, ecke_breite=30, distance=150){
 
 
 module boden(){
-    
+
     boden_beite=breite+2*boden_rand;
     boden_laenge=laenge+ 1*boden_rand;
-    
+
     pos1x=20;
     pos1y=10;
     pos2x=20;
     pos2y=60;
-    
+
     difference(){
             translate([-boden_rand/2,-breite/2-boden_rand,-dicke])
             union(){
                 cube([boden_laenge,boden_beite , 2*dicke]);
-            
+
             }
             //schinen ausschnitt
             translate([-boden_rand,-breite/2-boden_rand,-dicke])
             translate([3*boden_rand,boden_beite/2-gleis_breite/2,-1])
             cube([laenge, gleis_breite, 20]);
-            
+
             // linke wand
             translate([0,breite/2,0])
             wall(laenge, hoehe, 2.5*dicke, 4);
@@ -198,12 +237,12 @@ module boden(){
             translate([laenge,-breite/2,0])
             rotate([0,0,180])
             wall(laenge, hoehe, 2.5*dicke, 4);
-            
+
             // hinten wand
             translate([2.5,-breite/2,0])
             rotate([0,0,90])
             wall(breite, hoehe, 2.5*dicke);
-                
+
             // eingang wand
             translate([laenge-2.5,breite/2,0])
             rotate([0,0,-90])
@@ -214,21 +253,21 @@ module boden(){
                 }
             }
         }
-        
+
     //gehweg links
     translate([boden_rand*3,-gleis_breite/2-gehweg_breite- 5 ,0])
-    gehweg();    
+    gehweg();
     //gehweg rechts
     translate([boden_rand*3,gleis_breite/2 + 5 ,0])
-    gehweg(); 
-    
+    gehweg();
+
 }
 
 module gehweg() {
     gehweg_laenge = laenge *3/6;
     translate([0,0,gehweg_hoehe])
     cube([gehweg_laenge+2*dicke, gehweg_breite, dicke]);
-    
+
     pfosten = 6;
     abstand = gehweg_laenge/(pfosten-1);
     for(count = [0:pfosten-1]){
@@ -238,14 +277,14 @@ module gehweg() {
     //treppe hinten
     translate([-gehweg_hoehe-1, 0, 0])
     treppe();
-    
+
     translate([gehweg_laenge+gehweg_hoehe+3, gehweg_breite, 0])
     rotate([0,0,180])
     treppe();
 }
 
 module treppe(){
-    
+
     for(step=[1:2:gehweg_hoehe]){
             translate([step,0,0])
             cube([2, gehweg_breite, step]);
@@ -254,35 +293,7 @@ module treppe(){
 
 
 
-module tuer(){
-    tuer_breite = eingang_breite/2 - 1;
-    tuer_hoehe = eingang_hoehe-gleis_hoehe - 2;
-    
-    f_rahmen = 5;
-    f_hoehe = tuer_hoehe/3;
-    f_breite = tuer_breite - 2*f_rahmen;
-    
-    difference(){
-        union(){
-            cube([tuer_breite, dicke, tuer_hoehe]); 
-            if(balken_an){
-                //deko
-                d_hoehe=3;
-                for(step=[0:5]){
-                    translate([f_breite+f_rahmen,0,5+(step*d_hoehe)])
-                    rotate([90,0,-90])                
-                    triangle(d_hoehe,1,f_breite);
-                }
-            
-            }
-        }
-        //fenster
-        
-        translate([f_rahmen,-1, tuer_hoehe-f_hoehe-f_rahmen])
-        cube([f_breite,3,f_hoehe]);
-        
-    }
-}
+
 module gleis(x_offset, y_offset){
     translate([x_offset, y_offset,0]){
         if(balken_an){
@@ -301,39 +312,6 @@ module gleis(x_offset, y_offset){
     }
 }
 }
-module u_kanal(u_breite=10, u_hoehe= 4, u_laenge=50, u_dicke=1, cut_top_left=false, cut_top_right=false, cut_bottom_left=false, cut_bottom_right=false){
-    
-    difference(){
-       
-       cube([ u_laenge, u_breite, u_hoehe]);
-       translate([-u_dicke, u_dicke, u_dicke])
-       cube([ u_laenge+2*u_dicke, u_breite-2*dicke, u_hoehe]);
-        
-        if(cut_top_left){
-             translate([0,-u_dicke,0])
-            rotate([0,-45,0])
-            cube(u_breite+u_hoehe);
-        }
-        if(cut_top_right){
-            translate([u_laenge,-u_dicke,0])
-            rotate([0,-45,0])
-            cube(u_breite+u_hoehe);
-        }
-        if(cut_bottom_left){
-            translate([0,-u_dicke,u_hoehe])
-            rotate([0,135,0])
-            cube(u_breite+u_hoehe);
-        }
-        if(cut_bottom_right){
-            translate([u_laenge,-u_dicke,u_hoehe])
-            rotate([0,135,0])
-            cube(u_breite+u_hoehe);
-        }
-    }
-    
-}
-
-
 
 //putt it together
 union(){
@@ -351,7 +329,7 @@ wall(laenge, hoehe, dicke, 4);
 translate([0,-breite/2,0])
 rotate([0,0,90])
 wall(breite, hoehe, dicke);
-    
+
 // eingang wand
 translate([laenge,breite/2,0])
 rotate([0,0,-90])
@@ -364,15 +342,15 @@ difference(){
 // tür lings
 translate([laenge+5,0,gleis_hoehe]){
 rotate([0,0,90]){
-tuer();
+tuer2();
 }
 }
 // tür rechts
 translate([laenge+5,-eingang_breite/2,gleis_hoehe]){
 rotate([0,0,90]){
-tuer();
+tuer2();
 }
-} 
+}
 // dach
 translate([-2*dicke,-breite/2-2*dicke,hoehe+dicke])
 dach();
@@ -384,6 +362,7 @@ dach();
 boden();
 
 //kabelkanal
+color(farbe_fenster)
 union(){
   kabel_kanal_drucken = false;
 if(kabel_kanal_drucken){
@@ -394,13 +373,13 @@ if(kabel_kanal_drucken){
         u_kanal(kabel_kanal_breite,kabel_kanal_hoehe,laenge/3, cut_bottom_left=true);
         u_kanal(kabel_kanal_breite,kabel_kanal_hoehe,laenge/3);
     }
-    
+
 }else{
     union(){
     //kabel kanal wand hinten
     translate([kabel_kanal_breite,0,0])
     rotate([0,-90,0])
-    u_kanal(kabel_kanal_breite,5,hoehe, cut_bottom_right=true);
+    u_kanal(kabel_kanal_breite,5,hoehe-3*dicke, cut_bottom_right=true);
     //kabel kanal oben
     translate([kabel_kanal_hoehe,0,hoehe-kabel_kanal_hoehe])
     u_kanal(kabel_kanal_breite,kabel_kanal_hoehe,laenge/3, cut_bottom_left=true);
@@ -408,17 +387,12 @@ if(kabel_kanal_drucken){
     translate([laenge/3+kabel_kanal_hoehe,kabel_kanal_breite,hoehe])
     rotate([180,0,0])
     u_kanal(kabel_kanal_breite,kabel_kanal_hoehe,laenge/3);
-}  
+}
     }
-    }
+}
 
 
-
-
-    
-
-
+// gleise
 %gleis(3*boden_rand, -c_gleis_breite/2);
 
 }
-

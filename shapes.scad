@@ -25,11 +25,11 @@ module trapez3d(bottom = 30, top = 25, height = 10, length = 172){
             trapez(bottom, top, height);
     }
 }
-translate([0,0,0])
+
+translate([0,50,0])
 trapez3d();
 
 module trapez(bottom = 30, top = 25, height = 10){
-    echo("haha");
     off = (bottom-top);
     CubePoints = [
   [  0,  0,  0 ],  //0
@@ -46,26 +46,38 @@ polyhedron( CubePoints, CubeFaces );
 
 }
 
-module grid(g_breite=40, g_hoehe=60, felder_lenks=2, felder_hoch=3, achsen_breite=1, achsen_tiefe=3){
+function step_size(total, bar_width, steps) = (total-bar_width)/steps;
 
-   //assert(felder_lenks>0, "felder_lenks must be greater 0");
-   // assert(felder_hoch>0, "felder_hoch must be greater 0");
+module grid(grid_width=40, grid_height=60, steps_wide=2, steps_high=3, bar_width=1, bar_depth=3, name="grid"){
 
-    schritt_breite = (g_breite-achsen_breite)/felder_lenks;
-    schritt_hoehe = (g_hoehe-achsen_breite)/felder_hoch;
 
-    if(felder_lenks>0){
-    for(lenks=[0:felder_lenks]){
-        translate([lenks*schritt_breite,0,0])
-        cube([achsen_breite, achsen_tiefe, g_hoehe]);
+    step_width = step_size(grid_width, bar_width, steps_wide);
+    step_height = step_size(grid_height, bar_width, steps_high);
+
+    if(name != "grid2")
+        echo (name, " steps ", step_width, step_height)
+    if(steps_wide>0){
+    for(s_wide=[0:steps_wide]){
+        translate([s_wide*step_width,0,0])
+        cube([bar_width, bar_depth, grid_height]);
     }}
 
-    if(felder_hoch>0){
-    for(hoch=[0:felder_hoch]){
-        translate([0,0,hoch*schritt_hoehe])
-        cube([g_breite, achsen_tiefe, achsen_breite]);
+    if(steps_high>0){
+    for(s_height=[0:steps_high]){
+        translate([0,0,s_height*step_height])
+        cube([grid_width, bar_depth, bar_width]);
     }}
+
 }
 
-translate([0,50,0])
-grid(felder_lenks=4, felder_hoch=8);
+border = 10;
+wide=3;
+height=2;
+translate([0,0,0])
+grid(100,100, wide, height, bar_width=border);
+
+// sample cube to fit in the hole
+
+color("#00FFFF50")
+translate([border,-2, border])
+cube([step_size(100,border,wide)-border,6,step_size(100,border,height)-border]);
