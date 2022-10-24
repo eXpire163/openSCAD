@@ -1,3 +1,23 @@
+// Outside width
+u_breite=12; 
+// Outside hight
+u_hoehe= 4; 
+// Length
+u_laenge=70;
+// Thickness of the wall
+u_dicke=1; 
+
+cut_top_left= "no"; // [yes,no]
+cut_top_right= "yes"; // [yes,no]
+cut_bottom_left= "yes"; // [yes,no]
+cut_bottom_right= "no"; // [yes,no]
+
+u_kanal(u_breite, u_hoehe, u_laenge, u_dicke, cut_top_left, cut_top_right, cut_bottom_left, cut_bottom_right);
+
+
+
+
+
 
 //  module u_kanal(u_breite, u_hoehe, u_laenge)
 //  allows to create cabel canals
@@ -12,22 +32,22 @@ module u_kanal(u_breite=12, u_hoehe= 4, u_laenge=50, u_dicke=1, cut_top_left=fal
        translate([-u_dicke, u_dicke, u_dicke])
        cube([ u_laenge+2*u_dicke, u_breite-2*u_dicke, u_hoehe]);
 
-        if(cut_top_left){
+        if(cut_top_left == "yes"){
              translate([0,-u_dicke,0])
             rotate([0,-45,0])
             cube(u_breite+u_hoehe);
         }
-        if(cut_top_right){
+        if(cut_top_right == "yes"){
             translate([u_laenge,-u_dicke,0])
             rotate([0,-45,0])
             cube(u_breite+u_hoehe);
         }
-        if(cut_bottom_left){
+        if(cut_bottom_left == "yes"){
             translate([0,-u_dicke,u_hoehe])
             rotate([0,135,0])
             cube(u_breite+u_hoehe);
         }
-        if(cut_bottom_right){
+        if(cut_bottom_right == "yes"){
             translate([u_laenge,-u_dicke,u_hoehe])
             rotate([0,135,0])
             cube(u_breite+u_hoehe);
@@ -35,7 +55,7 @@ module u_kanal(u_breite=12, u_hoehe= 4, u_laenge=50, u_dicke=1, cut_top_left=fal
     }
 
 }
-
+/*
 //preview
 
 width = 10;
@@ -77,3 +97,4 @@ translate([0,5*width,0]){
     u_kanal(width,height,length/3, cut_top_left=true, cut_bottom_right=true);
 
 }
+*/
