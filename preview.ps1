@@ -7,3 +7,8 @@ forfiles.exe /S /M *.png /C "cmd /c echo ## ![@fname](@relpath) @fname" | Out-Fi
 # replace \ with /
 (Get-Content .\README.md) -Replace '\\', '/' | Set-Content .\README.md
 (Get-Content .\README.md) -Replace '"', '' | Set-Content .\README.md
+
+
+git add .
+git cam "update docs"
+git pu

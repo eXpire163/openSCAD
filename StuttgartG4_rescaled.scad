@@ -104,11 +104,11 @@ module body(){
         front_window_part = front_window_width/10;
         translate([-2, -(width/1.5)/2,window_start_height]){
             translate([0,0,0])
-            #cube([length*1.1,front_window_part*2, window_height]) ;
+            cube([length*1.1,front_window_part*2, window_height]) ;
             translate([0,3*front_window_part,0])
-            #cube([length*1.1,front_window_part*4, window_height]) ;
+            cube([length*1.1,front_window_part*4, window_height]) ;
             translate([0,8*front_window_part,0])
-            #cube([length*1.1,front_window_part*2, window_height]) ;
+            cube([length*1.1,front_window_part*2, window_height]) ;
                        
         }
         
@@ -264,10 +264,10 @@ module wheel_holder_single(wh_width=7,wh_height=10,wh_hole=3,wh_thickness=2){
         
         translate([0,0,-wh_height/2+hole_distance])
         rotate([90,0,0])
-            #cylinder(h=2*wh_thickness, d=wh_hole, center=true);
+            cylinder(h=2*wh_thickness, d=wh_hole, center=true);
         
         translate([0,0,-wh_height/2 +hole_distance/2 ])
-            #cube([1.9,wh_thickness*2, hole_distance ], center=true);
+            cube([1.9,wh_thickness*2, hole_distance ], center=true);
     }
 }
 
