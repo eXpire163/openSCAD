@@ -1,3 +1,5 @@
+use<shapes.scad>
+
 inner_width = 950;
 height_slot = 80;
 depth_slot = 47;
@@ -16,21 +18,9 @@ insertStart=0;
 layer_height =calc_slot_height;// height_slot+board+1;
 echo("layer_height",layer_height);
 
-module insert(tx=0,ty=0,tz=0) {
-    translate([tx,ty,tz])
-        color("blue",0.2)
-        cube([inner_width, depth_slot, height_slot]);
-    
-    echo("endedge", tz+height_slot);
-    
-    x = (tx+inner_width);
-    y = (ty+depth_slot);
-    z = (tz+height_slot);
-    translate([x,y,z])
-    rotate([90,0,0])
-    text(str(x," ",y," ",z)); 
-    
-}
+
+
+
 
 for(i=[0:layers-1]){
     
@@ -42,10 +32,9 @@ for(i=[0:layers-1]){
     color("brown")
         cube([inner_width, depth, board]);
 
+    color("blue",0.2)
+    ccube(inner_width, depth_slot, height_slot,1,0,insertStart);
     
-    insert(1,0,insertStart);
-    
-      echo("startpoint", startpoint);  
-    echo("insertStart", insertStart);  
+    //echo("startpoint", startpoint);  
+    //echo("insertStart", insertStart);  
 }
- 

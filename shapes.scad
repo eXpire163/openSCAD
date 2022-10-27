@@ -71,6 +71,24 @@ module grid(grid_width=40, grid_height=60, steps_wide=2, steps_high=3, bar_width
 
 }
 
+function getCenter(value, center=false) = center ? value/2 : value;
+
+//ccube is a cube thats wants to translate itself and prints the upper edge coordingates in preview mode
+module ccube(x,y,z,tx=0,ty=0,tz=0, center=false, force_preview=false) {
+    translate([tx,ty,tz])
+    cube([x,y,z], center);
+
+    if($preview || force_preview){
+        dx = tx+getCenter(x,center);
+        dy = ty+getCenter(y,center);
+        dz = tz+getCenter(z,center);
+
+        translate([dx,dy,dz])
+        rotate([90,0,0])
+        text(str(dx,", ",dy,", ",dz)); 
+    }
+}
+
 border = 8;
 wide=4;
 height=2;
@@ -82,3 +100,5 @@ grid(100,100, wide, height, bar_width=border);
 color("#00FFFF50")
 translate([border,68, border])
 cube([step_size(100,border,wide)-border,6,step_size(100,border,height)-border]);
+
+ccube(50,20,30,0,140,0, force_preview=true);
