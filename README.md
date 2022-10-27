@@ -1,9 +1,5 @@
 # openscad preview 
 
-## ![image1x1](./image1x1.png) image1x1
-## ![image2x1](./image2x1.png) image2x1
-## ![image3x1](./image3x1.png) image3x1
-## ![image4x1](./image4x1.png) image4x1
 ## ![bridge](./docs/bridge.png) bridge
 ## ![cabelcanal](./docs/cabelcanal.png) cabelcanal
 ## ![Lokschuppen](./docs/Lokschuppen.png) Lokschuppen
