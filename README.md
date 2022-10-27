@@ -10,7 +10,6 @@
 ## ![StuttgartG4](./docs/StuttgartG4.png) StuttgartG4
 ## ![StuttgartG4_rescaled](./docs/StuttgartG4_rescaled.png) StuttgartG4_rescaled
 ## ![switch_box](./docs/switch_box.png) switch_box
-## ![Train Display](./docs/Train Display.png) Train Display
 ## ![TrainDisplay](./docs/TrainDisplay.png) TrainDisplay
 ## ![trainDraw](./docs/trainDraw.png) trainDraw
 ## ![trainPlatform](./docs/trainPlatform.png) trainPlatform
