@@ -8,12 +8,12 @@ drillwhole = 7;
 linear_extrude(depth){
     difference(){//upper bar
         translate([0,-thickness])
-        square([width, 2*thickness]); 
-        hull(){
-        translate([2*thickness,-thickness])
-        #circle(d=2*thickness); 
-        translate([2*width,-thickness])
-        #circle(d=2*thickness); 
+        square([width, 2*thickness]);  //double thickness to create soft edge left bar
+        hull(){ //merge both holes to cut them off
+            translate([2*thickness,-thickness])
+            circle(d=2*thickness); 
+            translate([2*width,-thickness])
+            circle(d=2*thickness); 
         }
         //mounting
         translate([thickness/2,thickness/2,0])
