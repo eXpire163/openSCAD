@@ -1,7 +1,7 @@
 use<shapes.scad>
 
 
-module platform(width=45, height=15, splits = 5, thickness=1.5, overhang = 1, bar_width=0.5){
+module platform(width=45, height=11, splits = 5, thickness=1.5, overhang = 1, bar_width=0.5){
     
     difference(){
         ccube(width, thickness, height);
@@ -19,7 +19,7 @@ module platform(width=45, height=15, splits = 5, thickness=1.5, overhang = 1, ba
     }
 }
 
-module ramp(width=45, height=15, splits = 5, thickness=1.5, overhang = 0, bar_width=0.5, left=true, degree = 10){
+module ramp(width=45, height=11, splits = 5, thickness=1.5, overhang = 0, bar_width=0.5, left=true, degree = 10){
     difference(){
         if(left){
             platform(width, height, splits, thickness, overhang, bar_width);
@@ -36,6 +36,7 @@ module ramp(width=45, height=15, splits = 5, thickness=1.5, overhang = 0, bar_wi
         cube([width*2,(thickness+overhang)*4,height*2]);
     }
 }
+$preview = false;
 
 translate([0,20,0])
 color("grey")
