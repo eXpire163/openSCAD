@@ -2,6 +2,7 @@
 
 ## ![bridge](./docs/bridge.png) bridge
 ## ![cabelcanal](./docs/cabelcanal.png) cabelcanal
+## ![eur-pallet](./docs/eur-pallet.png) eur-pallet
 ## ![j-holder](./docs/j-holder.png) j-holder
 ## ![j-holder_animated](./docs/j-holder_animated.png) j-holder_animated
 ## ![Lokschuppen](./docs/Lokschuppen.png) Lokschuppen
