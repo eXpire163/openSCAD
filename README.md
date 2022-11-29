@@ -1,5 +1,6 @@
 # openscad preview 
 
+## ![barrel](./docs/barrel.png) barrel
 ## ![bridge](./docs/bridge.png) bridge
 ## ![cabelcanal](./docs/cabelcanal.png) cabelcanal
 ## ![cargo_wood](./docs/cargo_wood.png) cargo_wood

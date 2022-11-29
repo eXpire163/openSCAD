@@ -1,67 +1,34 @@
-scale = 87;
+//scale = 87;
 
-width = 800;
-length = 1200;
-height = 144;
+width = 27;
+length = 92;
+height = 23;
 
-board_height = 35;
-board_width = 150;
-space = 63.75;
-scale([1/scale,1/scale,1/scale]){
-//length top
-translate([0,0,height-board_height])
-cube([length, 100, board_height]);
-translate([0,100+(1*space),height-board_height])
-cube([length, 100, board_height]);
-translate([0,200+(2*space),height-board_height])
-cube([length, 145, board_height]);
-translate([0,345+(3*space),height-board_height])
-cube([length, 100, board_height]);
-translate([0,445+(4*space),height-board_height])
-cube([length, 100, board_height]);
+random_seed = 1;
 
-//length bot
-translate([0,0,0])
-cube([length, 100, board_height]);
-//translate([0,100+(1*space),0])
-//cube([length, 100, board_height]);
-translate([0,200+(2*space),0])
-cube([length, 145, board_height]);
-//translate([0,345+(3*space),0])
-//cube([length, 100, board_height]);
-translate([0,445+(4*space),0])
-cube([length, 100, board_height]);
+count_width = 4;
+count_height = 15;
 
-//cross
+bar_width = width/count_width;
+bar_height = height/count_height;
 
-translate([0,0,height-2*board_height])
-cube([150, width, board_height]);
-translate([length/2-75,0,height-2*board_height])
-cube([150, width, board_height]);
-translate([length-150,0,height-2*board_height])
-cube([150, width, board_height]);
-
-//cubes
-//front
-translate([0,0,0])
-cube([150, 100, height]);
-translate([length/2-75,0,0])
-cube([150, 100, height]);
-translate([length-150,0,0])
-cube([150, 100, height]);
-//mid
-translate([0,200+(2*space),0])
-cube([150, 145, height]);
-translate([length/2-75,200+(2*space),0])
-cube([150, 145, height]);
-translate([length-150,200+(2*space),0])
-cube([150, 145, height]);
-//back
-translate([0,445+(4*space),0])
-cube([150, 100, height]);
-translate([length/2-75,445+(4*space),0])
-cube([150, 100, height]);
-translate([length-150,445+(4*space),0])
-cube([150, 100, height]);
-
+for(y=[0:count_width-1]){
+    for(z=[0:count_height-1]){   
+     translate([rands(-1,1,1,random_seed+z+y)[0],y*bar_width+rands(-0.2,0.2,1,random_seed+z)[0], z*bar_height])
+     cube([length, bar_width-0.5, bar_height]);
+    }
 }
+
+//innercube for printing without infill
+translate([2.5,2.5,0])
+    cube([length-5, width-5, height-bar_height]);
+
+
+strip1 = length*1/4;
+strip2 = length*3/4;
+
+translate([strip1,-1.5,0])
+    cube([2, width+3, height+1]);
+translate([strip2,-1.5,0])
+    cube([2, width+3, height+1]);
+
