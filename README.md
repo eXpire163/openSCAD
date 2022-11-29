@@ -2,6 +2,7 @@
 
 ## ![bridge](./docs/bridge.png) bridge
 ## ![cabelcanal](./docs/cabelcanal.png) cabelcanal
+## ![cargo_wood](./docs/cargo_wood.png) cargo_wood
 ## ![eur-pallet](./docs/eur-pallet.png) eur-pallet
 ## ![j-holder](./docs/j-holder.png) j-holder
 ## ![j-holder_animated](./docs/j-holder_animated.png) j-holder_animated

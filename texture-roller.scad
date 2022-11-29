@@ -71,49 +71,9 @@ module row(layer, lastLayer=false){
 
     stepper = 10;
     totalSteps = 360/stepper;
-    z1=min_structure;
-    z2=max_structure;
 
-    offsets = [
-    rs(z1,z2,99),
-    rs(z1,z2,1),
-    rs(z1,z2,2),
-    rs(z1,z2,3),
-    rs(z1,z2,4),
-    rs(z1,z2,5),
-    rs(z1,z2,6),
-    rs(z1,z2,7),
-    rs(z1,z2,8),
-    rs(z1,z2,9),
-    rs(z1,z2,10),
-    rs(z1,z2,11),
-    rs(z1,z2,12),
-    rs(z1,z2,1),
-    rs(z1,z2,2),
-    rs(z1,z2,3),
-    rs(z1,z2,4),
-    rs(z1,z2,5),
-    rs(z1,z2,6),
-    rs(z1,z2,7),
-    rs(z1,z2,8),
-    rs(z1,z2,9),
-    rs(z1,z2,10),
-    rs(z1,z2,11),
-    rs(z1,z2,12),
-    rs(z1,z2,1),
-    rs(z1,z2,2),
-    rs(z1,z2,3),
-    rs(z1,z2,4),
-    rs(z1,z2,5),
-    rs(z1,z2,6),
-    rs(z1,z2,7),
-    rs(z1,z2,8),
-    rs(z1,z2,9),
-    rs(z1,z2,10),
-    rs(z1,z2,11),
-    rs(z1,z2,12),
-    rs(z1,z2,13)
-    ];
+
+    offsets = rands(min_structure,max_structure,150,1);
     //echo(offsets);
 union(){
     for(x=[0:totalSteps-2]){
@@ -147,8 +107,9 @@ difference(){
         }
         translate([0,0,height])
             row(0, true);
+        cylinder(h=height*1, d=0.7*diameter, center=false);
     }
-    cylinder(h=height*3, d=0.7*diameter, center=true);
+    cylinder(h=height*3, d=0.6*diameter, center=true);
 
 }
 
