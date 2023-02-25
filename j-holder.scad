@@ -5,6 +5,8 @@ thickness = 15;
 depth = 15;
 drillwhole = 7;
 
+module j_holder(width, height, thickness, depth, drillwhole){
+
 linear_extrude(depth){
     difference(){//upper bar
         translate([0,-thickness])
@@ -34,3 +36,5 @@ linear_extrude(depth){
         square([width, width/2]); // cut circle right
     }
 }
+}
+j_holder(width, height, thickness, depth, drillwhole);

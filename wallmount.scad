@@ -1,13 +1,13 @@
 // wall mount
 $fn = 50;
-width = 12;
+width = 13;
 depth= 80;
 height = 50;
 
 top_tickness = 5;
 cut_scale = 1.1;
-drill_hole = 3;
-drill_hole_top = 6; 
+drill_hole = 4.5;
+drill_hole_top = 9; 
 
 drilldiff = drill_hole_top-drill_hole;
 
