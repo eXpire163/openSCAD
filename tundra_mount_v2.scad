@@ -1,8 +1,8 @@
 $fn = 30;
 
-module screw(hole = 4, height=3, head = 8){
+module screw(hole = 4.5, height=3, head = 8){
         cylinder(30,d=hole, center=true);
-    cylinder(h = height, d1 = hole, d2 = head);
+    // cylinder(h = height, d1 = hole, d2 = head);
     
     }
 
