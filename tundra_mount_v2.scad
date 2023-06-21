@@ -1,10 +1,14 @@
 $fn = 30;
 
+// not recommended but if you dont have flat screws
+counterbore = "off"; //["on", "off"]
+
 module screw(hole = 4.5, height=3, head = 8){
-        cylinder(30,d=hole, center=true);
-    // cylinder(h = height, d1 = hole, d2 = head);
-    
+    cylinder(30,d=hole, center=true);
+    if(counterbore != "off"){
+        cylinder(h = height, d1 = hole, d2 = head);
     }
+}
 
 
 
