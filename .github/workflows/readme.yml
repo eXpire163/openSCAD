@@ -27,6 +27,6 @@ jobs:
       - name: Create galery
         uses: eXpire163/openscad-actions@main
         with:
-          scad_file: ./test/
+          scad_file: ./
           output_file: ./output/
           target_format_for_bulk: png
